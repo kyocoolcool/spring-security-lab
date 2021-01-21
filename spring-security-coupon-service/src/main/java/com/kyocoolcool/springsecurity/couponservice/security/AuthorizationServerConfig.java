@@ -10,7 +10,9 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
-import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
+import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+
+import javax.sql.DataSource;
 
 /**
  * @author 陳金昌 Chris Chen
@@ -30,9 +32,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private DataSource dataSource;
+
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints.tokenStore(new InMemoryTokenStore()).authenticationManager(authenticationManager)
+        endpoints.tokenStore(new JdbcTokenStore(dataSource)).authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService);
     }
 
@@ -40,6 +45,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory().withClient("couponclientapp").secret(passwordEncoder.encode("9999"))
                 .authorizedGrantTypes("password", "refresh_token").scopes("read", "write")
-                .resourceIds(RESOURCE_ID);
+                .resourceIds(RESOURCE_ID)
+                .accessTokenValiditySeconds(120)
+                .refreshTokenValiditySeconds(240000);;
     }
 }
