@@ -2,7 +2,6 @@ package com.kyocoolcool.springsecurity.couponservice.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,7 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @author 陳金昌 Chris Chen
  * @version 1.0 2021/1/20 9:56 AM
  */
-@Configuration
+//@Configuration
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     UserDetailsServiceImpl userDetailsService;
