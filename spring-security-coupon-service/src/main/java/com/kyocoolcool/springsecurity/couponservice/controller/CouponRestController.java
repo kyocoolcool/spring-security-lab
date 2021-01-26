@@ -13,6 +13,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/couponapi")
+//@CrossOrigin
 public class CouponRestController {
     @Autowired
     CouponRepository couponRepository;

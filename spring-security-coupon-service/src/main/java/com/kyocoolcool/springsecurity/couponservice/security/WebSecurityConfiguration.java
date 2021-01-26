@@ -12,6 +12,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+
+import java.util.List;
 
 /**
  * @author 陳金昌 Chris Chen
@@ -35,7 +39,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .mvcMatchers(HttpMethod.GET,"/couponapi/coupons/{code:^[A-Z0-9]*$}"
-                ,"index","showGetCoupon").hasAnyRole("ADMIN","USER")
+                ,"index","showGetCoupon")
+                .permitAll()
+//                .hasAnyRole("ADMIN","USER")
                 .mvcMatchers(HttpMethod.GET, "showCreateCoupon","createCoupon").hasRole("ADMIN")
                 .mvcMatchers(HttpMethod.POST, "/getCoupon").hasAnyRole("ADMIN","USER")
                 .mvcMatchers(HttpMethod.POST, "/couponapi/coupons"
@@ -49,6 +55,14 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 //            RequestMatcher requestMatchers =new MvcRequestMatcher(new HandlerMappingIntrospector(), "/getCoupon");
             csrfCustomizer.ignoringRequestMatchers(requestMatchers);
         });
+        http.cors(corsCustomizer->{
+            CorsConfigurationSource configurationSource=request->{
+                CorsConfiguration corsConfiguration = new CorsConfiguration();
+                corsConfiguration.setAllowedOrigins(List.of("localhost:3000"));
+                corsConfiguration.setAllowedHeaders(List.of("GET"));
+                return corsConfiguration;
+            };
+            corsCustomizer.configurationSource(configurationSource);});
     }
 
     @Bean
