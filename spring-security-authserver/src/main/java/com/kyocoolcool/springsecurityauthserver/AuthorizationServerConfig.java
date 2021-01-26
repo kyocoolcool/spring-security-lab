@@ -1,4 +1,4 @@
-package com.kyocoolcool.springsecurity.couponservice.security;
+package com.kyocoolcool.springsecurityauthserver;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -73,7 +73,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
-        System.out.println("aaaaaa");
         KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource(keyFile), password.toCharArray());
         KeyPair keyPair = keyStoreKeyFactory.getKeyPair(alias);
         jwtAccessTokenConverter.setKeyPair(keyPair);
