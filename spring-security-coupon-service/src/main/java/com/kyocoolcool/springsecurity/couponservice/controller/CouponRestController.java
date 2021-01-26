@@ -3,6 +3,7 @@ package com.kyocoolcool.springsecurity.couponservice.controller;
 import com.kyocoolcool.springsecurity.couponservice.bean.CouponBean;
 import com.kyocoolcool.springsecurity.couponservice.repository.CouponRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +25,7 @@ public class CouponRestController {
     }
 
     @GetMapping(value = "/coupons/{code}")
+    @PostAuthorize("returnObject.discount<60")
     public CouponBean findById(@PathVariable("code") String code) {
         return couponRepository.findByCode(code);
     }

@@ -3,6 +3,7 @@ package com.kyocoolcool.springsecurity.couponservice.controller;
 import com.kyocoolcool.springsecurity.couponservice.bean.CouponBean;
 import com.kyocoolcool.springsecurity.couponservice.repository.CouponRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,9 @@ public class CouponController {
     CouponRepository couponRepository;
 
     @GetMapping("/index")
+//    @PreAuthorize("hasRole('ADMIN')")
+//    @RolesAllowed("ADMIN")
+    @Secured("ADMIN")
     public String index() {
         return "index";
     }
