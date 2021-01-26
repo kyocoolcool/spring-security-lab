@@ -4,7 +4,7 @@
 </head>
 <body>
 <div>
-    <form name="f" action="/login" method="post">
+    <form name="f" action="#" th:action="@{/login}" method="post">
         <fieldset>
             <legend>Please Login</legend>
             <div th:if="${param.error}" class="alert alert-error">

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Create Coupon</title>
 </head>
 <body>
 <h2>Create Coupon</h2>
-<form action="/saveCoupon" method="post">
+<form name="f" action="#" th:action="@{/saveCoupon}" method="post">
     Code:
     <label>
         <input name="code"/>
