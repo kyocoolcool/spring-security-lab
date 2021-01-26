@@ -1,16 +1,11 @@
 package com.kyocoolcool.springsecurity.couponservice.security;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 /**
  * @author 陳金昌 Chris Chen
@@ -20,8 +15,6 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 @EnableResourceServer
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
     private final String RESOURCE_ID = "couponservice";
-    @Value("${publicKey}")
-    private String publicKey;
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
@@ -35,17 +28,5 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .hasAnyRole("ADMIN", "USER")
                 .mvcMatchers(HttpMethod.POST, "/couponapi/coupons").hasAnyRole("ADMIN")
                 .anyRequest().denyAll().and().csrf().disable();
-    }
-
-    @Bean
-    public TokenStore tokenStore() {
-        return new JwtTokenStore(jwtAccessTokenConverter());
-    }
-
-    @Bean
-    public JwtAccessTokenConverter jwtAccessTokenConverter() {
-        JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
-        jwtAccessTokenConverter.setVerifierKey(publicKey);
-        return jwtAccessTokenConverter;
     }
 }
