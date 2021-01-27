@@ -2,10 +2,8 @@ package com.kyocoolcool.springsecurity.couponservice.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,8 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @author 陳金昌 Chris Chen
  * @version 1.0 2021/1/20 9:56 AM
  */
-@Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true,jsr250Enabled = true,securedEnabled = true)
+//@Configuration
+//@EnableGlobalMethodSecurity(prePostEnabled = true,jsr250Enabled = true,securedEnabled = true)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     UserDetailsServiceImpl userDetailsService;
@@ -28,7 +26,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 //    @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.httpBasic();
+//        http.httpBasic();
 ////        http.httpBasic();
 ////        http.formLogin();
 ////        http.csrf().disable()
