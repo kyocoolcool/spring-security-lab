@@ -1,8 +1,8 @@
 package com.kyocoolcool.springsecurity.productservice.controller;
 
-import com.kyocoolcool.springsecurity.productservice.bean.ProductBean;
+import com.kyocoolcool.springsecurity.productservice.jpa.bean.ProductBean;
 import com.kyocoolcool.springsecurity.productservice.dto.CouponDto;
-import com.kyocoolcool.springsecurity.productservice.repository.ProductRepository;
+import com.kyocoolcool.springsecurity.productservice.jpa.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestBody;

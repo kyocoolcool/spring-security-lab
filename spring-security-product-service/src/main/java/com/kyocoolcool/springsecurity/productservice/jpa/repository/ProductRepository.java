@@ -1,6 +1,6 @@
-package com.kyocoolcool.springsecurity.productservice.repository;
+package com.kyocoolcool.springsecurity.productservice.jpa.repository;
 
-import com.kyocoolcool.springsecurity.productservice.bean.ProductBean;
+import com.kyocoolcool.springsecurity.productservice.jpa.bean.ProductBean;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

@@ -1,4 +1,7 @@
-package com.kyocoolcool.springsecurity.productservice.bean;
+package com.kyocoolcool.springsecurity.productservice.jpa.bean;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -15,11 +18,12 @@ public class ProductBean {
     private String name;
     private String description;
     private BigDecimal price;
-    private String CouponCode;
+    private String couponCode;
+    private ProductCategoryBean productCategoryBean;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
 
     public Long getId() {
         return id;
@@ -30,7 +34,7 @@ public class ProductBean {
     }
 
     @Basic
-    @Column(name = "name", nullable = true, length = 20)
+    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -40,7 +44,7 @@ public class ProductBean {
     }
 
     @Basic
-    @Column(name = "description", nullable = true, length = 100)
+    @Column(name = "description")
     public String getDescription() {
         return description;
     }
@@ -50,7 +54,7 @@ public class ProductBean {
     }
 
     @Basic
-    @Column(name = "price", nullable = true, precision = 3)
+    @Column(name = "price")
     public BigDecimal getPrice() {
         return price;
     }
@@ -59,13 +63,24 @@ public class ProductBean {
         this.price = price;
     }
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "category_id",insertable = true,updatable = true,referencedColumnName = "id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    public ProductCategoryBean getProductCategoryBean() {
+        return productCategoryBean;
+    }
+
+    public void setProductCategoryBean(ProductCategoryBean productCategoryBean) {
+        this.productCategoryBean = productCategoryBean;
+    }
+
     @Transient
     public String getCouponCode() {
-        return CouponCode;
+        return couponCode;
     }
 
     public void setCouponCode(String couponCode) {
-        CouponCode = couponCode;
+        couponCode = couponCode;
     }
 
     @Override
@@ -79,5 +94,17 @@ public class ProductBean {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, description, price);
+    }
+
+    @Override
+    public String toString() {
+        return "ProductBean{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", couponCode='" + couponCode + '\'' +
+                ", productCategoryBean=" + productCategoryBean +
+                '}';
     }
 }
