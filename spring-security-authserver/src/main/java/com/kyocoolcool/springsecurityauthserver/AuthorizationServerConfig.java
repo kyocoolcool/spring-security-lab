@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,8 +17,10 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 
 import javax.sql.DataSource;
+import java.security.KeyPair;
 
 /**
  * @author 陳金昌 Chris Chen
@@ -57,11 +60,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory().withClient("couponclientapp").secret(passwordEncoder.encode("9999"))
-                .authorizedGrantTypes("authorization_code","password", "refresh_token").scopes("read", "write")
-                .resourceIds(RESOURCE_ID)
-                .redirectUris("http://localhost:9091/codeHandlerPage")
-                .accessTokenValiditySeconds(120)
-                .refreshTokenValiditySeconds(240000);;
+                .authorizedGrantTypes("password", "refresh_token").scopes("read", "write")
+                .resourceIds(RESOURCE_ID);
+//                .redirectUris("http://localhost:9091/codeHandlerPage")
+//                .accessTokenValiditySeconds(120)
+//                .refreshTokenValiditySeconds(240000);;
     }
 
     @Override
@@ -77,10 +80,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
-//        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource(keyFile), password.toCharArray());
-//        KeyPair keyPair = keyStoreKeyFactory.getKeyPair(alias);
-//        jwtAccessTokenConverter.setKeyPair(keyPair);
-        jwtAccessTokenConverter.setSigningKey("testKey");
+        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource(keyFile), password.toCharArray());
+        KeyPair keyPair = keyStoreKeyFactory.getKeyPair(alias);
+        jwtAccessTokenConverter.setKeyPair(keyPair);
+//        jwtAccessTokenConverter.setSigningKey("testKey");
         return jwtAccessTokenConverter;
     }
 }

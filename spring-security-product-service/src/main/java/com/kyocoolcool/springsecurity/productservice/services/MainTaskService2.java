@@ -27,7 +27,7 @@ public class MainTaskService2 {
 //        for (int i = 0; i < 2; i++) {
 //            threadPoolTaskExecutor.execute(getTask(i));
 //        }
-        System.out.println("main2");
+        log.info("main2");
     }
 
     private Runnable getTask(int i) {

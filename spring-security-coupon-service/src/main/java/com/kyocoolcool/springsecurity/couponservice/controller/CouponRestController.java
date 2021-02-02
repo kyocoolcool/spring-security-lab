@@ -3,7 +3,6 @@ package com.kyocoolcool.springsecurity.couponservice.controller;
 import com.kyocoolcool.springsecurity.couponservice.bean.CouponBean;
 import com.kyocoolcool.springsecurity.couponservice.repository.CouponRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,14 +19,14 @@ public class CouponRestController {
     CouponRepository couponRepository;
 
     @PostMapping(value = "/coupons")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+//    @PreAuthorize("hasAnyRole('ADMIN')")
     public CouponBean create(@RequestBody CouponBean couponBean) {
         return couponRepository.save(couponBean);
     }
 
     @GetMapping(value = "/coupons/{code}")
 //    @PostAuthorize("returnObject.discount<60")
-    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public CouponBean findById(@PathVariable("code") String code) {
         return couponRepository.findByCode(code);
     }

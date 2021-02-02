@@ -33,5 +33,4 @@ public class ProductController {
         productBean.setPrice(productBean.getPrice().subtract(couponDto.getDiscount()));
         return productRepository.save(productBean);
     }
-
 }

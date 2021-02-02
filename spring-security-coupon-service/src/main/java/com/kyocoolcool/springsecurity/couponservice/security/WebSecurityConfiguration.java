@@ -2,6 +2,7 @@ package com.kyocoolcool.springsecurity.couponservice.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -30,19 +31,19 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 ////        http.httpBasic();
 ////        http.formLogin();
 ////        http.csrf().disable()
-//        http
-//                .authorizeRequests()
-//                .mvcMatchers(HttpMethod.GET,"/couponapi/coupons/{code:^[A-Z0-9]*$}"
-//                ,"index","showGetCoupon")
-//                .permitAll()
-////                .hasAnyRole("ADMIN","USER")
-//                .mvcMatchers(HttpMethod.GET, "showCreateCoupon","createCoupon").hasRole("ADMIN")
-//                .mvcMatchers(HttpMethod.POST, "/getCoupon").hasAnyRole("ADMIN","USER")
-//                .mvcMatchers(HttpMethod.POST, "/couponapi/coupons"
-//                        ,"saveCoupon").hasAnyRole("ADMIN")
-//                .mvcMatchers("/","/login","showRegistration","registerUser").permitAll()
-//                .anyRequest().denyAll()
-//                .and().logout().logoutSuccessUrl("/");
+        http
+                .authorizeRequests()
+                .mvcMatchers(HttpMethod.GET,"/couponapi/coupons/{code:^[A-Z0-9]*$}"
+                ,"index","showGetCoupon")
+                .permitAll()
+//                .hasAnyRole("ADMIN","USER")
+                .mvcMatchers(HttpMethod.GET, "showCreateCoupon","createCoupon").hasRole("ADMIN")
+                .mvcMatchers(HttpMethod.POST, "/getCoupon").hasAnyRole("ADMIN","USER")
+                .mvcMatchers(HttpMethod.POST, "/couponapi/coupons"
+                        ,"saveCoupon").hasAnyRole("ADMIN")
+                .mvcMatchers("/","/login","showRegistration","registerUser").permitAll()
+                .anyRequest().denyAll()
+                .and().logout().logoutSuccessUrl("/");
 //        http.csrf(csrfCustomizer->{
 ////            csrfCustomizer.ignoringAntMatchers("/couponapi/coupons/**");
 //            RequestMatcher requestMatchers = new RegexRequestMatcher("/couponapi/coupons/^[A-Z0-9]*$", "GET");
