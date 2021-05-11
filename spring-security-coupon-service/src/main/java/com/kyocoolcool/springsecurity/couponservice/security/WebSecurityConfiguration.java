@@ -25,7 +25,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService);
     }
 
-//    @Override
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
 //        http.httpBasic();
 ////        http.httpBasic();
